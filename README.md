@@ -1,2 +1,2 @@
 # go-play
-Playground for messing about with go
+My playground for messing about with go...
