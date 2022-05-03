@@ -12,9 +12,8 @@ import (
 // https://garfnet.org.uk/cms/tables/radio-frequencies/internet-radio-player/
 
 func main() {
-	wget := exec.Command(
-		"wget", "-O", "-", "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_one",
-	)
+	url := "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_one"
+	wget := exec.Command("wget", "-O", "-", url)
 	mpv := exec.Command("mpv", "-")
 	mpv.Stdin, wget.Stdout = io.Pipe()
 	wget.Start()
