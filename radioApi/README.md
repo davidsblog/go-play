@@ -2,6 +2,27 @@
 
 A simple webservice written in go which plays radio streams when requested.
 
+## Sample request for playing BBC Radio 1
+```
+POST http://localhost:8080/api/play
+
+{ "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_one" }
+```
+
+## Sample request for stopping
+```
+POST http://localhost:8080/api/stop
+
+{ }
+```
+
+## Sample request for volume up
+```
+POST http://localhost:8080/api/volume
+
+{ "command": "+" }
+```
+
 ## Mac and Linux
 Tested for Mac and Linux (Ubuntu) and everything should build and run without any trouble.
 
