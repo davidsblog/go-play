@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -104,18 +105,21 @@ func postVol(c *gin.Context) {
 		return
 	}
 
-	if request.Command == "+" {
-		vol++
+	switch request.Command {
+	case "+":
+		vol += 5
+	case "-":
+		vol -= 5
+	case "0":
+		vol = 0
 	}
-	if request.Command == "-" {
-		vol--
-	}
+
 	err = volume.SetVolume(vol)
 	if err != nil {
 		c.String(http.StatusInternalServerError, "Could not set volume")
 		return
 	}
-	c.String(http.StatusOK, string(vol))
+	c.String(http.StatusOK, strconv.Itoa(vol))
 }
 
 func postPlay(c *gin.Context) {
@@ -149,8 +153,10 @@ func main() {
 	stop = make(chan bool, 1)
 
 	engine := gin.Default()
+	engine.Static("/web", "../web")
+
 	engine.POST("/api/play", postPlay)
 	engine.POST("/api/stop", postStop)
 	engine.POST("/api/volume", postVol)
-	engine.Run(":8080")
+	engine.Run(":80")
 }
