@@ -26,6 +26,9 @@ POST http://localhost:8080/api/volume
 ## Mac and Linux
 Tested for Mac and Linux (Ubuntu) and everything should build and run without any trouble.
 
+On Ubuntu, I needed to install libasound2-dev:
+`sudo apt install libasound2-dev`
+
 ## Windows:
 
 Building on Windows requires gcc (for cgo) which can be 
