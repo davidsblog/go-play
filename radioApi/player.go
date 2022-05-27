@@ -4,6 +4,8 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
 	"sync"
 
@@ -149,11 +151,20 @@ func postStop(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
 }
 
+func getExePath() string {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	return filepath.Join(filepath.Dir(ex), "web")
+}
+
 func main() {
 	stop = make(chan bool, 1)
 
 	engine := gin.Default()
-	engine.Static("/web", "../web")
+	webPath := getExePath()
+	engine.Static("/", webPath)
 
 	engine.POST("/api/play", postPlay)
 	engine.POST("/api/stop", postStop)
