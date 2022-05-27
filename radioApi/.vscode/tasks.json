@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "go build api/player.go"
+            "command": "go build player.go"
         }
     ]
 }

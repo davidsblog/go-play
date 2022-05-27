@@ -151,7 +151,7 @@ func postStop(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
 }
 
-func getExePath() string {
+func getWebPath() string {
 	ex, err := os.Executable()
 	if err != nil {
 		panic(err)
@@ -163,8 +163,7 @@ func main() {
 	stop = make(chan bool, 1)
 
 	engine := gin.Default()
-	webPath := getExePath()
-	engine.Static("/", webPath)
+	engine.Static("/", getWebPath())
 
 	engine.POST("/api/play", postPlay)
 	engine.POST("/api/stop", postStop)
